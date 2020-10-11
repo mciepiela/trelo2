@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 using trelo2.Models;
 
 namespace trelo2.Controllers
@@ -17,7 +18,10 @@ namespace trelo2.Controllers
         // GET: Tasks
         public ActionResult Index()
         {
-            return View(db.Tasks.ToList());
+            var currentUserId = User.Identity.GetUserId();
+            ApplicationUser currentUser = db.Users.FirstOrDefault(x => x.Id == currentUserId);
+
+            return View(db.Tasks.ToList().Where(x => x.User == currentUser));
         }
 
         // GET: Tasks/Details/5
@@ -50,6 +54,9 @@ namespace trelo2.Controllers
         {
             if (ModelState.IsValid)
             {
+                string currentUserId = User.Identity.GetUserId();
+                ApplicationUser currentUser = db.Users.FirstOrDefault(x => x.Id == currentUserId);
+                task.User = currentUser;
                 db.Tasks.Add(task);
                 db.SaveChanges();
                 return RedirectToAction("Index");
