@@ -18,18 +18,23 @@ namespace trelo2.Controllers
         // GET: Tasks
         public ActionResult Index()
         {
+            
+
+            return View();
+        }
+
+        private IEnumerable<Task> GetMyTasks()
+        {
             var currentUserId = User.Identity.GetUserId();
             ApplicationUser currentUser = db.Users.FirstOrDefault(x => x.Id == currentUserId);
+            return db.Tasks.ToList().Where(x => x.User == currentUser);
 
-            return View(db.Tasks.ToList().Where(x => x.User == currentUser));
         }
 
         public ActionResult BulidTaskTable()
         {
-            var currentUserId = User.Identity.GetUserId();
-            ApplicationUser currentUser = db.Users.FirstOrDefault(x => x.Id == currentUserId);
-
-            return PartialView("_TaskTable", db.Tasks.ToList().Where(x => x.User == currentUser));
+            
+            return PartialView("_TaskTable", GetMyTasks() );
 
         }
 
