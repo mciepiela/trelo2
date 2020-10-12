@@ -17,9 +17,7 @@ namespace trelo2.Controllers
 
         // GET: Tasks
         public ActionResult Index()
-        {
-            
-
+        { 
             return View();
         }
 
@@ -78,6 +76,24 @@ namespace trelo2.Controllers
             }
 
             return View(task);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AjaxCreate([Bind(Include = "Id,Body")] Task task)
+        {
+            if (ModelState.IsValid)
+            {
+                string currentUserId = User.Identity.GetUserId();
+                ApplicationUser currentUser = db.Users.FirstOrDefault(x => x.Id == currentUserId);
+                task.User = currentUser;
+                task.IsReady = false;
+                db.Tasks.Add(task);
+                db.SaveChanges();
+                
+            }
+
+            return PartialView("_TaskTable", GetMyTasks());
         }
 
         // GET: Tasks/Edit/5
