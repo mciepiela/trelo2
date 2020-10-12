@@ -22,3 +22,38 @@ select,
 textarea {
     max-width: 280px;
 }
+/* Override bootstrap navbar*/
+.navbar-inverse {
+    background-color: #F4D03F;
+    border-color: #333399;
+}
+
+.navbar-inverse .navbar-brand {
+    color: black;
+}
+
+.navbar-inverse .navbar-nav > li > a {
+    color: black;
+    font-size: medium;
+    font-weight: bolder;
+}
+
+.navbar-brand {
+    float: left;
+    height: 50px;
+    padding: 15px 15px;
+    font-size: 25px;
+    line-height: 20px;
+    font-weight: bold;
+}
+
+body {
+    font-family: Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #333333;
+    background-color: #fff;
+}
+.addbar {
+    background-color: #F4D03F;
+}

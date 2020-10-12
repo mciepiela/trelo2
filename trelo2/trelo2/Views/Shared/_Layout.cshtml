@@ -3,7 +3,8 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title - trelo2</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
@@ -21,8 +22,8 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Dodaj zadanie", "Create", "Tasks")</li>
-                    <li>@Html.ActionLink("Twoje zadania", "Index", "Tasks")</li>
+                    
+                    <li>@Html.ActionLink("Lista zadań", "Index", "Tasks")</li>
                
                 </ul>
                 @Html.Partial("_LoginPartial")
