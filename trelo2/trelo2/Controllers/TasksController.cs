@@ -24,6 +24,15 @@ namespace trelo2.Controllers
             return View(db.Tasks.ToList().Where(x => x.User == currentUser));
         }
 
+        public ActionResult BulidTaskTable()
+        {
+            var currentUserId = User.Identity.GetUserId();
+            ApplicationUser currentUser = db.Users.FirstOrDefault(x => x.Id == currentUserId);
+
+            return PartialView("_TaskTable", db.Tasks.ToList().Where(x => x.User == currentUser));
+
+        }
+
         // GET: Tasks/Details/5
         public ActionResult Details(int? id)
         {
@@ -48,6 +57,7 @@ namespace trelo2.Controllers
         // POST: Tasks/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Body,IsReady")] Task task)
