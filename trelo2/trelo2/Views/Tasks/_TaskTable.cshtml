@@ -13,7 +13,15 @@
     @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Body)
+                @if (!item.IsReady)
+                {
+                    @Html.DisplayFor(modelItem => item.Body)
+
+                }
+                else
+                {
+                    <div class="finishedTask">@Html.DisplayFor(modelItem => item.Body)</div>
+                }
             </td>
             <td>
                 @Html.CheckBoxFor(modelItem => item.IsReady, new {id=item.Id, @class="ActiveCheck"})

@@ -54,6 +54,11 @@ body {
     color: #333333;
     background-color: #fff;
 }
+/*Additional style*/
 .addbar {
     background-color: #F4D03F;
+}
+.finishedTask {
+    color: darkgrey;
+    text-decoration: line-through;
 }
