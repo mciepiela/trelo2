@@ -16,7 +16,7 @@
                 @Html.DisplayFor(modelItem => item.Body)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.IsReady)
+                @Html.CheckBoxFor(modelItem => item.IsReady, new {id=item.Id, @class="ActiveCheck"})
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
@@ -27,3 +27,4 @@
     }
 
 </table>
+<script src="~/Custom_Scripts/AddCheckboxListner.js"></script>

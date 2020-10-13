@@ -106,7 +106,7 @@ namespace trelo2.Controllers
             Task task = db.Tasks.Find(id);
             if (task == null)
             {
-                return HttpNotFound();
+                return HttpNotFound();  
             }
             return View(task);
         }
@@ -126,7 +126,28 @@ namespace trelo2.Controllers
             }
             return View(task);
         }
+        [HttpPost]
+        public ActionResult AjaxEdit( int? id, bool value)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Task task = db.Tasks.Find(id);
+            if (task == null)
+            {
+                return HttpNotFound();
+            }
+            else
+            {
+                task.IsReady = value;
+                db.Entry(task).State = EntityState.Modified;
+                db.SaveChanges();
+                return PartialView("_TaskTable", GetMyTasks());
+            }
 
+            
+        }
         // GET: Tasks/Delete/5
         public ActionResult Delete(int? id)
         {
