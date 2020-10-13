@@ -25,10 +25,23 @@ namespace trelo2.Controllers
         {
             var currentUserId = User.Identity.GetUserId();
             ApplicationUser currentUser = db.Users.FirstOrDefault(x => x.Id == currentUserId);
-            return db.Tasks.ToList().Where(x => x.User == currentUser);
+            
+            IEnumerable<Task> myTask = db.Tasks.ToList().Where(x => x.User == currentUser);
+            int amountOfTasks = myTask.Count();
+            
+            int readyTaskCount = 0;
+            foreach (Task task in myTask)
+            {
+                if (task.IsReady)
+                {
+                    readyTaskCount++;
+                }
+            }
 
+            ViewBag.Percent = Math.Round(100f * ((float)readyTaskCount / (float)amountOfTasks));
+            return myTask;
         }
-
+        
         public ActionResult BulidTaskTable()
         {
             
