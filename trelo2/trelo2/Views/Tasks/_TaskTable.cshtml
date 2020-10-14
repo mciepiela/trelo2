@@ -1,24 +1,19 @@
 ﻿@using trelo2.Models
 @model IEnumerable<trelo2.Models.Task>
 
-<div id="progressBar"><p>@(ViewBag.Percent)</p></div>
-<div class="progress"><div class="progress-bar bg-warning progress-bar-striped " role="progressbar" style="width: @(Html.AttributeEncode(ViewBag.Percent))%"></div></div>
+
+<div class="progress"><div class="progress-bar progress-bar-warning progress-bar-striped" role="progressbar" style="width: @(Html.AttributeEncode(ViewBag.Percent))%"></div></div>
 
 
 <table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Body)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IsReady)
-        </th>
-        <th></th>
-    </tr>
 
+    
     @foreach (var item in Model)
     {
         <tr>
+            <td>
+                @Html.CheckBoxFor(modelItem => item.IsReady, new { id = item.Id, @class = "ActiveCheck" })
+            </td>
             <td>
                 @if (!item.IsReady)
                 {
@@ -30,13 +25,11 @@
                     <div class="finishedTask">@Html.DisplayFor(modelItem => item.Body)</div>
                 }
             </td>
-            <td>
-                @Html.CheckBoxFor(modelItem => item.IsReady, new { id = item.Id, @class = "ActiveCheck" })
-            </td>
-            <td>
-                @Html.ActionLink("Edytuj", "Edit", new { id = item.Id }) |
 
-                @Html.ActionLink("Usuń", "Delete", new { id = item.Id })
+            <td>
+                @Html.ActionLink("Edytuj", "Edit", new {id = item.Id}) |
+
+                @Html.ActionLink("Usuń", "Delete", new {id = item.Id})
             </td>
         </tr>
     }

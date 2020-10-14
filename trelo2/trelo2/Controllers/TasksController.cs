@@ -16,6 +16,7 @@ namespace trelo2.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Tasks
+        [Authorize]
         public ActionResult Index()
         { 
             return View();
@@ -41,7 +42,8 @@ namespace trelo2.Controllers
             ViewBag.Percent = Math.Round(100f * ((float)readyTaskCount / (float)amountOfTasks));
             return myTask;
         }
-        
+
+        [Authorize]
         public ActionResult BulidTaskTable()
         {
             
@@ -50,6 +52,8 @@ namespace trelo2.Controllers
         }
 
         // GET: Tasks/Details/5
+        [Authorize]
+
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -65,6 +69,8 @@ namespace trelo2.Controllers
         }
 
         // GET: Tasks/Create
+        [Authorize]
+
         public ActionResult Create()
         {
             return View();
@@ -76,6 +82,8 @@ namespace trelo2.Controllers
         
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
+
         public ActionResult Create([Bind(Include = "Id,Body,IsReady")] Task task)
         {
             if (ModelState.IsValid)
@@ -93,6 +101,8 @@ namespace trelo2.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
+
         public ActionResult AjaxCreate([Bind(Include = "Id,Body")] Task task)
         {
             if (ModelState.IsValid)
@@ -110,6 +120,8 @@ namespace trelo2.Controllers
         }
 
         // GET: Tasks/Edit/5
+        [Authorize]
+
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -136,6 +148,8 @@ namespace trelo2.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
+
         public ActionResult Edit([Bind(Include = "Id,Body,IsReady")] Task task)
         {
             if (ModelState.IsValid)
@@ -147,6 +161,8 @@ namespace trelo2.Controllers
             return View(task);
         }
         [HttpPost]
+        [Authorize]
+
         public ActionResult AjaxEdit( int? id, bool value)
         {
             if (id == null)
@@ -169,7 +185,10 @@ namespace trelo2.Controllers
             
         }
         // GET: Tasks/Delete/5
+        [Authorize]
         public ActionResult Delete(int? id)
+    
+
         {
             if (id == null)
             {
@@ -186,12 +205,17 @@ namespace trelo2.Controllers
         // POST: Tasks/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+      
+
+public ActionResult DeleteConfirmed(int id)
         {
-            Task task = db.Tasks.Find(id);
-            db.Tasks.Remove(task);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+
+            
+                var task = db.Tasks.Find(id);
+                db.Tasks.Remove(task);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            
         }
 
         protected override void Dispose(bool disposing)

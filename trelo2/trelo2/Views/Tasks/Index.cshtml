@@ -25,7 +25,7 @@
             @Html.AntiForgeryToken()
            
             <div class="addbar">
-                @Html.EditorFor(model => model.Body, new {htmlAttributes = new {@class = "form-control"}})
+                @Html.EditorFor(model => model.Body, new {htmlAttributes = new {@class = "form-control", placeholder = "Dodaj zadanie, ENTER!" } })
                 @Html.ValidationMessageFor(model => model.Body, "", new {@class = "text-danger"})
             </div>
         </div>
