@@ -8,6 +8,7 @@ namespace trelo2.Models
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
+           // this.Configuration.LazyLoadingEnabled = false;
         }
 
         public DbSet<Task> Tasks { get; set; }

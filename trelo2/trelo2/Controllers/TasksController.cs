@@ -8,28 +8,34 @@ using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using trelo2.Models;
+using trelo2.Services.Interfaces;
 
 namespace trelo2.Controllers
 {
     public class TasksController : Controller
     {
+        private readonly ITasksServices _taskServices;
         private ApplicationDbContext db = new ApplicationDbContext();
+
+        public TasksController(ITasksServices taskServices)
+        {
+            _taskServices = taskServices;
+        }
 
         // GET: Tasks
         [Authorize]
         public ActionResult Index()
-        { 
+        {
             return View();
         }
 
         private IEnumerable<Task> GetMyTasks()
         {
             var currentUserId = User.Identity.GetUserId();
-            ApplicationUser currentUser = db.Users.FirstOrDefault(x => x.Id == currentUserId);
-            
-            IEnumerable<Task> myTask = db.Tasks.ToList().Where(x => x.User == currentUser);
+
+            IEnumerable<Task> myTask = _taskServices.GetUserTasks(currentUserId);
             int amountOfTasks = myTask.Count();
-            
+
             int readyTaskCount = 0;
             foreach (Task task in myTask)
             {
@@ -46,8 +52,8 @@ namespace trelo2.Controllers
         [Authorize]
         public ActionResult BulidTaskTable()
         {
-            
-            return PartialView("_TaskTable", GetMyTasks() );
+
+            return PartialView("_TaskTable", GetMyTasks());
 
         }
 
@@ -79,7 +85,7 @@ namespace trelo2.Controllers
         // POST: Tasks/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
@@ -105,18 +111,27 @@ namespace trelo2.Controllers
 
         public ActionResult AjaxCreate([Bind(Include = "Id,Body")] Task task)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                string currentUserId = User.Identity.GetUserId();
-                ApplicationUser currentUser = db.Users.FirstOrDefault(x => x.Id == currentUserId);
-                task.User = currentUser;
-                task.IsReady = false;
-                db.Tasks.Add(task);
-                db.SaveChanges();
-                
+                //return valdation error View
             }
 
-            return PartialView("_TaskTable", GetMyTasks());
+
+            string currentUserId = User.Identity.GetUserId();
+            var result = _taskServices.CreateTaskForUser(task, currentUserId);
+
+            if (result == true)
+            {
+                return PartialView("_TaskTable", GetMyTasks());
+            }
+            else
+            {
+                //return
+            }
+
+            return PartialView("_ErrorView");
+
+
         }
 
         // GET: Tasks/Edit/5
@@ -131,7 +146,7 @@ namespace trelo2.Controllers
             Task task = db.Tasks.Find(id);
             if (task == null)
             {
-                return HttpNotFound();  
+                return HttpNotFound();
             }
             string currentUserId = User.Identity.GetUserId();
             ApplicationUser currentUser = db.Users.FirstOrDefault(x => x.Id == currentUserId);
@@ -163,7 +178,7 @@ namespace trelo2.Controllers
         [HttpPost]
         [Authorize]
 
-        public ActionResult AjaxEdit( int? id, bool value)
+        public ActionResult AjaxEdit(int? id, bool value)
         {
             if (id == null)
             {
@@ -182,12 +197,12 @@ namespace trelo2.Controllers
                 return PartialView("_TaskTable", GetMyTasks());
             }
 
-            
+
         }
         // GET: Tasks/Delete/5
         [Authorize]
         public ActionResult Delete(int? id)
-    
+
 
         {
             if (id == null)
@@ -205,17 +220,17 @@ namespace trelo2.Controllers
         // POST: Tasks/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-      
 
-public ActionResult DeleteConfirmed(int id)
+
+        public ActionResult DeleteConfirmed(int id)
         {
 
-            
-                var task = db.Tasks.Find(id);
-                db.Tasks.Remove(task);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            
+
+            var task = db.Tasks.Find(id);
+            db.Tasks.Remove(task);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+
         }
 
         protected override void Dispose(bool disposing)

@@ -218,3 +218,11 @@ D:\Source\Repos\trelo22\trelo2\trelo2\trelo2\obj\Debug\trelo2.csproj.CoreCompile
 D:\Source\Repos\trelo22\trelo2\trelo2\trelo2\obj\Debug\trelo2.csproj.CopyComplete
 D:\Source\Repos\trelo22\trelo2\trelo2\trelo2\obj\Debug\trelo2.dll
 D:\Source\Repos\trelo22\trelo2\trelo2\trelo2\obj\Debug\trelo2.pdb
+D:\Source\Repos\trelo22\trelo2\trelo2\trelo2\bin\System.Runtime.CompilerServices.Unsafe.dll
+D:\Source\Repos\trelo22\trelo2\trelo2\trelo2\bin\Unity.Abstractions.dll
+D:\Source\Repos\trelo22\trelo2\trelo2\trelo2\bin\Unity.Container.dll
+D:\Source\Repos\trelo22\trelo2\trelo2\trelo2\bin\Unity.Mvc5.dll
+D:\Source\Repos\trelo22\trelo2\trelo2\trelo2\bin\System.Threading.Tasks.Extensions.dll
+D:\Source\Repos\trelo22\trelo2\trelo2\trelo2\bin\System.Runtime.CompilerServices.Unsafe.xml
+D:\Source\Repos\trelo22\trelo2\trelo2\trelo2\bin\Unity.Abstractions.pdb
+D:\Source\Repos\trelo22\trelo2\trelo2\trelo2\bin\Unity.Container.pdb
