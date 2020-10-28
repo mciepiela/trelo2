@@ -36,7 +36,7 @@ namespace trelo2.Services
 
                 return true;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return false;
             }
