@@ -66,7 +66,8 @@ namespace trelo2.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Task task = db.Tasks.Find(id);
+
+            Task task = _taskServices.DetailOfTask(id.Value);
             if (task == null)
             {
                 return HttpNotFound();
