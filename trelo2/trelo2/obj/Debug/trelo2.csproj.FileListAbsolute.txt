@@ -226,3 +226,11 @@ D:\Source\Repos\trelo22\trelo2\trelo2\trelo2\bin\System.Threading.Tasks.Extensio
 D:\Source\Repos\trelo22\trelo2\trelo2\trelo2\bin\System.Runtime.CompilerServices.Unsafe.xml
 D:\Source\Repos\trelo22\trelo2\trelo2\trelo2\bin\Unity.Abstractions.pdb
 D:\Source\Repos\trelo22\trelo2\trelo2\trelo2\bin\Unity.Container.pdb
+D:\Source\Repos\trelo22\trelo2\trelo2\trelo2\bin\xunit.abstractions.dll
+D:\Source\Repos\trelo22\trelo2\trelo2\trelo2\bin\xunit.assert.dll
+D:\Source\Repos\trelo22\trelo2\trelo2\trelo2\bin\xunit.core.dll
+D:\Source\Repos\trelo22\trelo2\trelo2\trelo2\bin\xunit.execution.desktop.dll
+D:\Source\Repos\trelo22\trelo2\trelo2\trelo2\bin\xunit.abstractions.xml
+D:\Source\Repos\trelo22\trelo2\trelo2\trelo2\bin\xunit.assert.xml
+D:\Source\Repos\trelo22\trelo2\trelo2\trelo2\bin\xunit.core.xml
+D:\Source\Repos\trelo22\trelo2\trelo2\trelo2\bin\xunit.execution.desktop.xml
