@@ -12,6 +12,7 @@ namespace trelo2.Services
     public class TasksServices : ITasksServices
     {
         private readonly ApplicationDbContext _db;
+
         public TasksServices()
         {
             _db = new ApplicationDbContext();
@@ -21,40 +22,26 @@ namespace trelo2.Services
         public IEnumerable<Task> GetUserTasks(string userId)
         {
             //if (userId == null)
-      
-            try 
+
+            try
             {
-                IEnumerable<Task> myTask = _db.Tasks.Include("User").Where(x => x.User.Id.Equals(userId, StringComparison.InvariantCulture));
+                IEnumerable<Task> myTask = _db.Tasks.Include("User")
+                    .Where(x => x.User.Id.Equals(userId, StringComparison.InvariantCulture));
 
                 return myTask;
             }
-                
+
             catch (Exception userIdIsNull)
             {
                 Console.WriteLine(userIdIsNull);
                 return null;
             }
 
-            
-            
+
+
         }
 
-        public Task DetailOfTask(int id)
-        {
-            // if id == null
-            try
-            {
-                Task task = _db.Tasks.Find(id);
 
-                return task;
-            }
-            catch (Exception argumentException)
-            {
-                Console.WriteLine(argumentException);
-                throw;
-            }
-            
-        }
 
         public bool CreateTaskForUser(Task taskToCreate, string userId)
         {
@@ -73,6 +60,51 @@ namespace trelo2.Services
             {
                 return false;
             }
+        }
+
+        public Task DetailOfTask(int id)
+        {
+            // if id == null
+            try
+            {
+                Task task = _db.Tasks.Find(id);
+
+                return task;
+            }
+            catch (Exception argumentException)
+            {
+                Console.WriteLine(argumentException);
+                throw;
+            }
+
+        }
+
+        public Task DeleteTask(int id)
+        {
+            Task taskToDel = _db.Tasks.Find(id);
+            _db.Tasks.Remove(taskToDel);
+
+            return taskToDel;
+
+        }
+        public Task DeleteTaskConfirmed(int id)
+        {
+            
+            try
+            {
+                var taskToDelConfirmed = _db.Tasks.Find(id);
+                _db.Tasks.Remove(taskToDelConfirmed);
+               _db.SaveChanges();
+
+                return taskToDelConfirmed;
+            }
+            catch (Exception argumenteException)
+            {
+                Console.WriteLine(argumenteException);
+                throw;
+            }
+            
+
         }
     }
 }

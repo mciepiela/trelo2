@@ -210,7 +210,8 @@ namespace trelo2.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Task task = db.Tasks.Find(id);
+
+            Task task = _taskServices.DeleteTask(id.Value);
             if (task == null)
             {
                 return HttpNotFound();
@@ -227,9 +228,9 @@ namespace trelo2.Controllers
         {
 
 
-            var task = db.Tasks.Find(id);
-            db.Tasks.Remove(task);
-            db.SaveChanges();
+            Task taskToDelConfirmed = _taskServices.DeleteTaskConfirmed(id);
+           
+            
             return RedirectToAction("Index");
 
         }

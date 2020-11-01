@@ -12,5 +12,7 @@ namespace trelo2.Services.Interfaces
         IEnumerable<Task> GetUserTasks(string userId);
         bool CreateTaskForUser(Task taskToCreate, string userId);
         Task DetailOfTask(int id);
+        Task DeleteTask(int id);
+        Task DeleteTaskConfirmed(int id);
     }
 }
