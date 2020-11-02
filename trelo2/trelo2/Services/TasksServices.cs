@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.Diagnostics;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using Microsoft.Ajax.Utilities;
 using trelo2.Models;
 using trelo2.Services.Interfaces;
 
@@ -42,7 +41,6 @@ namespace trelo2.Services
         }
 
 
-
         public bool CreateTaskForUser(Task taskToCreate, string userId)
         {
             try
@@ -76,6 +74,24 @@ namespace trelo2.Services
                 Console.WriteLine(argumentException);
                 throw;
             }
+
+        }
+
+        public Task EditTask(int id, bool value)
+        {
+
+
+
+
+            Task taskToEdit = _db.Tasks.Find(id); 
+                taskToEdit.IsReady = value;
+                    _db.Entry(taskToEdit).State = EntityState.Modified;
+                    _db.SaveChanges();
+                    return taskToEdit;
+           
+                
+
+
 
         }
 

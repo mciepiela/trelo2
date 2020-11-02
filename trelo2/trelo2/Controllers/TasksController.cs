@@ -1,12 +1,10 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using Microsoft.AspNet.Identity;
 using trelo2.Models;
 using trelo2.Services.Interfaces;
 
@@ -192,9 +190,7 @@ namespace trelo2.Controllers
             }
             else
             {
-                task.IsReady = value;
-                db.Entry(task).State = EntityState.Modified;
-                db.SaveChanges();
+                task = _taskServices.EditTask(id.Value, value);
                 return PartialView("_TaskTable", GetMyTasks());
             }
 
