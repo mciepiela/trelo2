@@ -85,24 +85,24 @@ namespace trelo2.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        [Authorize]
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //[Authorize]
 
-        public ActionResult Create([Bind(Include = "Id,Body,IsReady")] Task task)
-        {
-            if (ModelState.IsValid)
-            {
-                string currentUserId = User.Identity.GetUserId();
-                ApplicationUser currentUser = db.Users.FirstOrDefault(x => x.Id == currentUserId);
-                task.User = currentUser;
-                db.Tasks.Add(task);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+        //public ActionResult Create([Bind(Include = "Id,Body,IsReady")] Task task)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        string currentUserId = User.Identity.GetUserId();
+        //        ApplicationUser currentUser = db.Users.FirstOrDefault(x => x.Id == currentUserId);
+        //        task.User = currentUser;
+        //        db.Tasks.Add(task);
+        //        db.SaveChanges();
+        //        return RedirectToAction("Index");
+        //    }
 
-            return View(task);
-        }
+        //    return View(task);
+        //}
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -133,7 +133,7 @@ namespace trelo2.Controllers
 
         }
 
-        // GET: Tasks/Edit/5
+        //GET: Tasks/Edit/5
         [Authorize]
 
         public ActionResult Edit(int? id)
@@ -157,19 +157,22 @@ namespace trelo2.Controllers
             return View(task);
         }
 
+
         // POST: Tasks/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-
         public ActionResult Edit([Bind(Include = "Id,Body,IsReady")] Task task)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(task).State = EntityState.Modified;
-                db.SaveChanges();
+
+                //db.Entry(task).State = EntityState.Modified;
+               // db.SaveChanges();
+               
+               _taskServices.EditTaskPost(task);
                 return RedirectToAction("Index");
             }
             return View(task);
@@ -190,7 +193,7 @@ namespace trelo2.Controllers
             }
             else
             {
-                task = _taskServices.EditTask(id.Value, value);
+                task = _taskServices.EditTaskAjax(id.Value, value);
                 return PartialView("_TaskTable", GetMyTasks());
             }
 

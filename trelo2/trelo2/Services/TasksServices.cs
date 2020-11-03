@@ -77,22 +77,32 @@ namespace trelo2.Services
 
         }
 
-        public Task EditTask(int id, bool value)
+        public Task EditTaskAjax(int id, bool value)
         {
 
-
-
-
             Task taskToEdit = _db.Tasks.Find(id); 
-                taskToEdit.IsReady = value;
-                    _db.Entry(taskToEdit).State = EntityState.Modified;
-                    _db.SaveChanges();
-                    return taskToEdit;
-           
-                
+            taskToEdit.IsReady = value;
+            _db.Entry(taskToEdit).State = EntityState.Modified;
+            _db.SaveChanges();
+            return taskToEdit;
 
+        }
 
+        public Task EditTaskPost(Task task2)
+        {
+            try
+            {
+                _db.Entry(task2).State = EntityState.Modified;
+                _db.SaveChanges();
+                return task2;
 
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+            
         }
 
         public Task DeleteTask(int id)

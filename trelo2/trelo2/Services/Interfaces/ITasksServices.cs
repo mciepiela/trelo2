@@ -14,6 +14,8 @@ namespace trelo2.Services.Interfaces
         Task DetailOfTask(int id);
         Task DeleteTask(int id);
         Task DeleteTaskConfirmed(int id);
-        Task EditTask(int id, bool value);
+        Task EditTaskAjax(int id, bool value);
+        Task EditTaskPost(Task task);
+
     }
 }
