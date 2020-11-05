@@ -111,6 +111,18 @@ namespace trelo2.Services
             }
             
         }
+        //GET Edit
+        public Task EditTaskGet(int id)
+        {
+            Task task = _db.Tasks.Find(id);
+            if (task != null)
+            {
+                ApplicationUser currentUser = task.User;
+            }
+
+            return task;
+
+        }
 
         public Task DeleteTask(int id)
         {
@@ -138,6 +150,11 @@ namespace trelo2.Services
             }
             
 
+        }
+
+        public void Dispose(bool disposing)
+        {
+            _db.Dispose();
         }
     }
 }

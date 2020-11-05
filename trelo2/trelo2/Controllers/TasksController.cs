@@ -13,7 +13,6 @@ namespace trelo2.Controllers
     public class TasksController : Controller
     {
         private readonly ITasksServices _taskServices;
-        private ApplicationDbContext db = new ApplicationDbContext();
 
         public TasksController(ITasksServices taskServices)
         {
@@ -142,13 +141,17 @@ namespace trelo2.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Task task = db.Tasks.Find(id);
+
+            Task task = _taskServices.EditTaskGet(id.Value);
             if (task == null)
             {
                 return HttpNotFound();
             }
-            string currentUserId = User.Identity.GetUserId();
-            ApplicationUser currentUser = db.Users.FirstOrDefault(x => x.Id == currentUserId);
+            //string currentUserId = User.Identity.GetUserId();
+            ApplicationUser currentUser = _taskServices.EditTaskGet(id.Value).User;
+            
+
+            
             if (task.User != currentUser)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -186,14 +189,14 @@ namespace trelo2.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Task task = db.Tasks.Find(id);
+            Task task = _taskServices.EditTaskAjax(id.Value, value);
             if (task == null)
             {
                 return HttpNotFound();
             }
             else
             {
-                task = _taskServices.EditTaskAjax(id.Value, value);
+                //task = _taskServices.EditTaskAjax(id.Value, value);
                 return PartialView("_TaskTable", GetMyTasks());
             }
 
@@ -238,7 +241,7 @@ namespace trelo2.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                _taskServices.Dispose(disposing);
             }
             base.Dispose(disposing);
         }
