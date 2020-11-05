@@ -30,12 +30,18 @@ namespace trelo2.Services
                 return myTask;
             }
 
-            catch (Exception userIdIsNull)
+            catch (ArgumentNullException ex)
             {
-                Console.WriteLine(userIdIsNull);
+                Console.WriteLine("Brak argumentu. {ex}");
+                return null;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Coś poszło nie tak. {ex}");
                 return null;
             }
 
+            
 
 
         }
@@ -69,10 +75,11 @@ namespace trelo2.Services
 
                 return task;
             }
-            catch (Exception argumentException)
+            catch (Exception ArgumentException)
+
             {
-                Console.WriteLine(argumentException);
-                throw;
+                Console.WriteLine($"argumenException {ArgumentException}");
+                throw new ArgumentException(nameof(id));
             }
 
         }
